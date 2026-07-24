@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# enforces LF line endings normalization on every platform.
+# LF (Unix-style), CRLF (Windows)
