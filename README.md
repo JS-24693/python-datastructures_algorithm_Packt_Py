@@ -1,5 +1,7 @@
 # Foundations of Data Structures & Algorithms in Python Course - Packt
 
+## S03 - ArraysandLists Folder
+
 ## 01_ArrayPractice.py
 
 ### Python Dynamic Arrays, List Operations, Comprehensions, and Slicing
@@ -299,3 +301,195 @@ If a placement leads to a contradiction, the solver backtracks and restores the 
 - Runs in worst-case exponential time, but efficiently solves standard Sudoku puzzles.  
 - Modifies the board in-place; no additional data structures required.  
 - Ensures correctness by validating row, column, and grid before each placement.
+
+## S04 - Sorting Folder
+
+## 01_bubblesort.py
+
+#### AlgorithmConceptualUnderstanding Class
+
+This module provides a minimal, instructional implementation of the bubble sort algorithm. 
+
+Bubble sort is a comparison‑based, in‑place sorting method that repeatedly scans the list, compares adjacent elements, and swaps them when out of order. Each pass pushes the largest remaining element to its correct position, shrinking the unsorted region.
+
+## 02_selectionsort.py
+
+This module implements the selection sort algorithm. Selection sort scans the unsorted portion of the list, finds the smallest element, and swaps it into its correct position. After each pass, the sorted region grows by one element.
+
+#### selection_sort(li)
+
+Performs an in-place selection sort.
+
+- Outer loop selects index `i` where the next smallest element should be placed.
+- Inner loop scans `li[i:]` to find the smallest element.
+- Swap places the smallest element at index `i`.
+- Time complexity: O(n^2).
+
+## 03_insertionsort.py
+
+This module provides a minimal, instructional implementation of insertion sort.
+Insertion sort builds a sorted region one element at a time. The element at index 0 is treated as sorted; each subsequent element (key = li[i]) is inserted into its correct position by shifting larger elements to the right.
+
+Insertion sort is adaptive:
+- Best case (already sorted): inner loop performs no shifts → O(n)
+- Worst case (reverse sorted): each key shifts across entire sorted region → O(n²)
+
+## 04_mergetwosortedarrays.py
+
+This module implements the merge operation used in merge sort.  
+Given two sorted arrays `A` and `B`, the function `merge_sorted_arrays(A, B)` produces a new sorted array `C` containing all elements from both inputs.
+
+#### Algorithm
+
+The merge procedure uses two pointers:
+- `i` — current index in `A`
+- `j` — current index in `B`
+
+At each step, the smaller of `A[i]` and `B[j]` is appended to `C`.  
+When one array is exhausted, the remaining elements of the other array are appended directly.
+
+This guarantees linear time:
+- Each iteration advances either `i` or `j`
+- Total operations = `n + m`
+- Time complexity: **O(n + m)**
+
+## 05_divideconquer.py
+
+This module implements merge sort using a divide-and-conquer strategy.
+The algorithm recursively divides the array into two halves until each
+subarray has size 1, then merges sorted halves using the merge operation.
+
+#### Algorithm Overview
+
+1. **Divide**
+   - Compute midpoint: `mid = (left + right) // 2`
+   - Recursively sort `left..mid`
+   - Recursively sort `mid+1..right`
+
+2. **Conquer**
+   - Merge the two sorted halves using a temporary array `C`
+   - Copy merged results back into the original array
+
+#### Complexity
+
+- **Time:** O(n log n)
+- **Space:** O(n)
+- Merge sort guarantees n log n performance for all inputs.
+
+## 06_quicksort.py
+
+This module implements the partitioning step used in quicksort.
+Partitioning rearranges an array around a pivot so that:
+
+- All elements <= pivot appear on the left
+- Pivot appears in its correct final position
+- All elements > pivot appear on the right
+
+Partitioning does **not** sort the array; it only groups elements
+relative to the pivot. Quicksort uses this operation recursively
+to sort the left and right subarrays.
+
+#### Algorithm
+
+1. Choose pivot as the last element.
+2. Initialize `left = -1`.
+3. Scan from index `0` to `n-2`:
+   - If `A[i] <= pivot`, increment `left` and swap `A[i]` with `A[left]`.
+4. After scanning, increment `left` and swap pivot into position `left`.
+
+#### Complexity
+
+- **Time:** O(n)
+- **Space:** O(1)
+
+## 07_countingsort.py
+
+Counting sort is a non-comparison-based sorting algorithm that achieves
+linear time complexity O(n + m), where n is the number of elements and m
+is the maximum value in the array.
+
+It works by counting occurrences of each value, building a cumulative
+frequency array, and placing each element into its correct sorted
+position. Counting sort is stable and is used inside radix sort.
+
+#### Algorithm Steps
+
+1. Find the maximum value in the array.
+2. Build a frequency array of size (max_value + 1).
+3. Convert frequency array to cumulative frequency.
+4. Traverse the array in reverse to ensure stability.
+5. Place each element into its correct sorted position.
+6. Copy the result back into the original array.
+
+#### Complexity
+
+- **Time:** O(n + m)
+- **Space:** O(n + m)
+- **Stable:** Yes
+- **Comparison-based:** No
+
+## 08_move_zeroes.py
+
+The Move Zeroes (LeetCode 283) algorithm moves all zeros in an array to the end while preserving the relative order of non-zero elements. It uses a partition-style approach similar to quicksort.
+
+#### Algorithm
+
+1. Maintain a pointer `start` for the next non-zero placement.
+2. Scan the array from left to right.
+3. When a non-zero element is found:
+   - Swap it with `nums[start]`
+   - Increment `start`
+4. Zeros naturally shift to the end.
+
+#### Complexity
+
+- **Time:** O(n)
+- **Space:** O(1)
+- **Stable:** Yes (non-zero order preserved)
+
+## 09_majority_element.py
+
+#### Majority Element — Moore's Voting Algorithm (LeetCode 169)
+
+This solution finds the majority element in O(n) time and O(1) space
+using Moore's Voting Algorithm. The majority element is guaranteed to
+exist and appears more than n/2 times.
+
+#### Algorithm
+
+1. Choose the first element as the candidate.
+2. Set count = 1.
+3. For each element:
+   - If it matches the candidate, increment count.
+   - Otherwise, decrement count.
+   - If count becomes 0, choose a new candidate and reset count to 1.
+4. The final candidate is the majority element.
+
+#### Complexity
+
+- **Time:** O(n)
+- **Space:** O(1)
+
+## 10_sort colors.py
+
+The Sort Colors — Dutch National Flag Algorithm (LeetCode #75) problem requires sorting an array containing only 0, 1, and 2 without using built-in sorting. 
+The optimal solution is the Dutch National Flag algorithm, which partitions the array in a single pass.
+
+#### Algorithm
+
+Use three pointers:
+- `left`  → next position for a 0
+- `right` → next position for a 2
+- `i`     → current index
+
+Rules:
+1. If nums[i] == 0: swap with nums[left], increment both left and i.
+2. If nums[i] == 2: swap with nums[right], decrement right only.
+3. If nums[i] == 1: increment i.
+
+#### Complexity
+
+- **Time:** O(n)
+- **Space:** O(1)
+
+## S05 - Linked Lists Folder 
