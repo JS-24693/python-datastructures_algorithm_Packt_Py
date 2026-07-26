@@ -399,8 +399,13 @@ to sort the left and right subarrays.
 
 #### Complexity
 
-- **Time:** O(n)
-- **Space:** O(1)
+The pivot position directly determines recursion depth: 
+• If the pivot lands near the middle, recursion is balanced and fast. 
+• If the pivot lands near an end, recursion becomes unbalanced and slower. 
+
+This pivot dependent splitting is what creates quicksort’s three major time complexity behaviors: Best Case — O(n log n), Occurs when each pivot divides the array into two nearly equal halves. Average Case — O(n log n), Random data typically produces reasonably balanced partitions. Worst Case — O(n²), Occurs when each pivot produces extremely unbalanced partitions (e.g., already sorted input with a poor pivot choice). 
+
+As far as Space Complexity: Best & Average Case — O(log n), Balanced partitions produce a recursion depth of log n, so the call stack stores log n frames. Worst Case — O(n), Unbalanced partitions produce a recursion depth of n, so the call stack grows linearly.
 
 ## 07_countingsort.py
 
@@ -493,3 +498,246 @@ Rules:
 - **Space:** O(1)
 
 ## S05 - Linked Lists Folder 
+
+## 01_linkedlist_basic.py
+
+The Singly Linked List — Basic Manual Implementation project demonstrates a minimal singly linked list in Python.
+
+#### Concepts
+- A **node** stores `data` and a `next` pointer.
+- A **linked list** is a chain of nodes connected by `.next`.
+- The **head** pointer identifies the first node.
+- Traversal follows `.next` until reaching `None`.
+
+#### File: linkedlist_basic.py
+- Defines a `Node` class.
+- Manually constructs nodes A → B → C → D.
+- Traverses and prints the list.
+
+## 02_linkedlist_insert_top.py
+
+The Linked List — Insert at Top (Front) project demonstrates how to dynamically insert nodes at the front of a
+singly linked list in Python.
+
+#### Concepts
+- A **node** stores `data` and `next`.
+- **insert_at_top(data)** makes the new node the head.
+- Pointer update: `NN.next = head` then `head = NN`.
+- Empty list: new node becomes head.
+
+#### File: linkedlist_insert_top.py
+- Defines `Node` class.
+- Implements `insert_at_top` and `traverse`.
+- Test sequence inserts A, B, E, C → prints C, E, B, A.
+
+
+## 03_linkedlist_insert_end.py 
+
+The Linked List — Insert at End project demonstrates how to dynamically insert nodes at the end of a singly linked list in Python.
+
+#### Concepts
+- A **node** stores `data` and `next`.
+- **insert_at_end(data)** traverses to the last node and attaches the new node.
+- Empty list: new node becomes head.
+- Traversal stops when `current.next` is `None`.
+
+#### File: linkedlist_insert_end.py
+- Defines `Node` class.
+- Implements `insert_at_end` and `traverse`.
+- Test sequence inserts A, B, C, D at end, then Z at top → prints Z, A, B, C, D.
+
+## 04_linkedlist_insert_middle.py
+
+The Linked List — Insert in Middle project demonstrates how to insert nodes at arbitrary positions in a singly linked list.
+
+#### Concepts
+- To insert at position `pos`, traverse to `pos-1`.
+- Rewire pointers:
+  - `NN.next = current.next`
+  - `current.next = NN`
+- Empty list → new node becomes head.
+- Position too large → insert at end.
+
+#### File: linkedlist_insert_middle.py
+- Defines `Node` class.
+- Implements `insert_at` and `traverse`.
+- Test sequence builds A B C D, then inserts Z at pos 2, X at pos 1, Y at pos 100.
+
+## 05_linkedlist_delete_top.py 
+
+The Linked List — Delete at Top project demonstrates how to delete the first node of a singly linked list.
+
+#### Concepts
+- Deleting at top means updating `head` to `head.next`.
+- Removed node becomes unreachable and is garbage collected.
+- Empty list → no deletion performed.
+- Time complexity: O(1).
+
+#### File: linkedlist_delete_top.py
+- Defines `Node` class.
+- Implements `delete_at_top` and `traverse`.
+- Test sequence builds A B C D E, deletes twice, and prints results.
+
+## 06_linkedlist_delete_end.py
+
+The Linked List — Delete at End project demonstrates how to delete the last node of a singly linked list.
+
+#### Concepts
+- To delete the last node, traverse to the second-last node.
+- Update: `second_last.next = None`.
+- Single-node list → `head = None`.
+- Time complexity: O(n) due to traversal.
+
+#### File: linkedlist_delete_end.py
+- Defines `Node` class.
+- Implements `delete_at_end` and `traverse`.
+- Test sequence builds A B C D E, deletes twice, and prints results.
+
+## 07_intersection_linkedlists.py
+
+The Intersection of Two Linked Lists project implements the optimal O(M+N), O(1)-space algorithm for finding the intersection node of two singly linked lists.
+
+#### Key Idea
+After the intersection point, both lists share the same tail length. Align
+the pointers by advancing the longer list's pointer, then walk both pointers
+together until they meet.
+
+#### Steps
+1. Compute lengths of both lists.
+2. Advance pointer in longer list by the length difference.
+3. Move both pointers forward together.
+4. First node where they match is the intersection.
+
+#### File: intersection_linkedlists.py
+- Defines `Node`
+- Implements `length` and `get_intersection`
+- Includes a test case demonstrating intersection at C1.
+
+## 08_merge_sorted_lists.py
+
+The Merge Two Sorted Linked Lists project implements the optimal O(m+n), O(1)-space algorithm for merging two sorted singly linked lists.
+
+#### Key Idea
+Use two pointers to walk through both lists, always choosing the smaller
+value to append. When one list finishes, append the remainder of the other.
+
+#### Steps
+1. Initialize pointers p1 and p2 at heads of both lists.
+2. Compare values and append the smaller node.
+3. Advance the pointer whose node was used.
+4. Append remaining nodes when one list ends.
+5. Return the merged list’s head.
+
+## 09_linkedlist_cycle.py
+
+The Linked List Cycle Detection project implements Floyd's Tortoise and Hare algorithm to detect cycles in a singly linked list.
+
+#### Key Idea
+Use two pointers moving at different speeds. If they ever meet, the list
+contains a cycle. If the fast pointer reaches None, the list is acyclic.
+
+#### Steps
+1. Handle edge cases (0 or 1 nodes).
+2. Initialize slow = head, fast = head.next.
+3. Move slow by 1 step, fast by 2 steps.
+4. If slow == fast → cycle detected.
+5. If fast reaches None → no cycle.
+
+## 10_reverse_linkedlist_recursive.py
+
+The Reverse Linked List (Recursive) project implements the recursive algorithm for reversing a singly
+linked list.
+
+#### Key Idea
+Define a recursive function that reverses the list from the current node
+onward. The last node becomes the new head. As recursion unwinds, pointers
+are rewired so each node points backward.
+
+#### Steps
+1. Base case: if node.next is None → new head = node.
+2. Recursive call: last = reverse(node.next)
+3. Rewire: last.next = node
+4. After recursion: original head.next = None
+5. Return new head
+
+## 11_palindrome_linkedlist.py
+
+Palindrome Linked List (O(n) time, O(1) space) implements the optimal algorithm for checking whether a singly linked list is a palindrome without using extra space.
+
+#### Key Idea
+Reverse the second half of the list in-place, then compare both halves.
+
+#### Steps
+1. Compute list length.
+2. Determine reverse start index:
+   - Even: n/2
+   - Odd: n/2 + 1
+3. Reverse second half iteratively.
+4. Compare first half and reversed second half.
+5. Return True if all values match.
+
+## 12_linkedlist_cycle_start.py
+
+The Linked List Cycle Start project extends Floyd’s Tortoise and Hare algorithm to not only detect a cycle in a singly linked list, but also locate the exact node where the cycle begins.
+
+#### Key Idea
+
+Use two pointers moving at different speeds to detect a cycle.
+Once they meet, reset one pointer to the head and move both one step at a time.
+The node where they meet again is the cycle entry point.
+
+#### Steps
+
+- Detect the cycle using slow and fast pointers.
+- If fast reaches None, the list has no cycle.
+- When slow and fast meet, a cycle exists.
+- Reset one pointer to head.
+- Move both pointers one step at a time.
+- The node where they meet is the cycle start.
+
+#### Complexity
+
+- Time: O(n) — you traverse the list at most twice, so work grows linearly with list size.
+- Space: O(1) — you use only a few pointers, no extra data structures.
+
+## 13_find_middle_linkedlist.py
+
+The Find Middle of Linked List project implements the optimal slow–fast pointer method to find the middle node of a singly linked list in one pass.
+
+#### Key Idea
+Move slow by 1 step and fast by 2 steps. When fast reaches the end, slow
+will be at the middle.
+
+#### Even-Length Lists
+Return the second middle (e.g., list of length 6 → return node 4).
+
+## 14_add_two_numbers.py
+
+Add Two Numbers (Linked List) represented as reversed linked lists.
+
+#### Key Idea
+Traverse both lists, add digit-by-digit with carry, and build a new list
+containing the result digits in reversed order.
+
+#### Steps
+1. Initialize carry = 0.
+2. Loop while either list has digits.
+3. Sum digits + carry.
+4. Create new node with sum % 10.
+5. Update carry = sum // 10.
+6. Append final carry if needed.
+
+## 15_remove_nth_from_end.py
+
+The Remove Nth Node from End of List (One-Pass) project implements the optimal O(n) / O(1)-space algorithm for removing the Nth node from the end of a singly linked list.
+
+#### Key Idea
+Move fast pointer N+1 steps ahead. Then move both pointers together until
+fast reaches None. Slow will be just before the node to delete.
+
+#### Steps
+1. Move fast pointer N+1 steps.
+2. If fast becomes None early → delete head.
+3. Move slow and fast together.
+4. Rewire slow.next to skip the target node.
+5. Return updated head.
