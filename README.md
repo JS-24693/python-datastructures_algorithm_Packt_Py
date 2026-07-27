@@ -645,8 +645,7 @@ contains a cycle. If the fast pointer reaches None, the list is acyclic.
 
 ## 10_reverse_linkedlist_recursive.py
 
-The Reverse Linked List (Recursive) project implements the recursive algorithm for reversing a singly
-linked list.
+The Reverse Linked List (Recursive) project implements the recursive algorithm for reversing a singly linked list.
 
 #### Key Idea
 Define a recursive function that reverses the list from the current node
@@ -741,3 +740,197 @@ fast reaches None. Slow will be just before the node to delete.
 3. Move slow and fast together.
 4. Rewire slow.next to skip the target node.
 5. Return updated head.
+
+## S06 - Hash Table Folder
+
+## 01_unordered_hash_table.py
+
+This file provides a minimal, educational hash table implementation showing how keys are mapped to array indices using a hash function and the modulo operator. It uses separate chaining (lists in each bucket) to handle collisions. Python’s built‑in `dict` is significantly more optimized; this implementation is for instructional purposes only.
+
+This file implements a minimal **unordered hash table** using an array of buckets and separate chaining. Keys are not stored in sorted order; lookup is performed by hashing the key and scanning the bucket at the computed index. The unordered hash table does not guarantee bucket placement. The example output is only a possible arrangement, not a required or stable one.
+
+#### Concept
+
+A hash table:
+
+- Uses a hash function to convert a key into an integer hash value.
+- Computes `index = hash(key) % N` to map that hash value into a valid array index.
+- After a human selects a value for the key:
+  - Stores the key–value pair in the bucket at that index.
+- On lookup, repeats the same process to locate the bucket and then the key.
+
+This implementation uses separate chaining, where each bucket is a list of `(key, value)` pairs. Multiple entries may reside in the same bucket when collisions occur because different keys can map to the same index after applying `hash(key) % N`.
+
+## 02_dict_hash_table.py
+
+This file provides a minimal educational demonstration of how Python’s
+built‑in `dict` acts as a highly optimized hash table.
+
+#### Concept
+
+Python’s `dict` is implemented as a dynamic hash table offering:
+
+- **O(1)** average insert, lookup, and delete  
+- automatic resizing and collision handling  
+- **insertion‑order preservation** (Python 3.7+)  
+- compact memory layout and fast hashing  
+
+This example contrasts with manual hash‑table implementations such as
+`unordered_hash_table.py`, showing how simple and efficient the interface
+becomes when using Python’s built‑in structure.
+
+## 03_OrderedDict_hash_table.py
+
+The Ordered Dictionary Using a Hash Table project provides a minimal educational implementation of an **ordered dictionary** using:
+
+- A **hash table** for O(1) average lookup, insert, and delete
+- A **doubly linked list** to preserve insertion order
+
+This mirrors how ordered hash tables are commonly implemented in practice.
+
+#### Features
+
+- Maintains **insertion order**
+- Average **O(1)** insert, lookup, delete
+- Simple, readable implementation
+- Similar in spirit to Python's `OrderedDict`, but intentionally minimal
+
+## 04_ordered_map.py
+
+This file provides a minimal, educational **ordered map** implemented using a binary search tree (BST). Keys are stored in sorted order, and lookup and insertion follow BST comparison rules. Python’s built‑in dict preserves insertion order, but it does not provide sorted‑key ordering like a BST‑based ordered map. This implementation is for instructional purposes only.
+
+#### Concept
+
+An ordered map:
+- Stores keys in sorted order using a tree structure.
+- Uses key comparisons (`<`, `>`, `==`) to navigate the tree.
+- Provides `O(log N)` average and worst-case complexity when the tree is balanced.
+- Supports ordered operations such as sorted iteration.
+
+This implementation uses a simple BST and does not self-balance. It is intended to illustrate how ordered maps differ from unordered hash tables that use arrays and hashing.
+
+#### Note: 
+This implementation is a tree-based ordered map that returns keys in sorted lexicographic order. It is not the same as Python’s `dict` or `OrderedDict`, which preserves insertion order but does not sort keys.
+
+## 05_ordered_map_avl.py
+
+This file provides a minimal, educational **ordered map** implemented using an AVL (height-balanced) binary search tree. Keys are stored in sorted order, and insert/lookup operations run in `O(log N)` time due to automatic rebalancing.
+
+#### Concept
+
+An ordered map (tree-based):
+
+- Stores keys in **sorted order** using a balanced BST (AVL).
+- Uses key comparisons (`<`, `>`, `==`) to navigate the tree.
+- Maintains height balance so that the tree height is `O(log N)`.
+- Provides `O(log N)` insert and lookup in both average and worst cases.
+
+#### Notes:
+
+This implementation is a tree-based ordered structure and is **not** the same as Python’s `dict` or `OrderedDict`, which preserves **insertion order** but do not sort keys or provide guaranteed `O(log N)` operations. It is also different from an **unordered hash table**, which uses an array of buckets and hashing to achieve `O(1)` amortized average time but can degrade to `O(N)` in the worst case. 
+
+This implementation produces the same output as the simple binary tree structure but guarantees the height stays balanced for true `O(log N)` performance. 
+
+## 06_contains_duplicate.py
+
+This file implements the solution to the “Contains Duplicate” problem.  
+Given an integer array, return `True` if any value appears at least twice; otherwise return `False`.
+
+#### Concept
+
+To detect duplicates efficiently:
+
+- Use a **hash table (dict)** or a **set**.
+- Scan each number once.
+- If a number has already been seen, return `True` immediately.
+- If the scan completes with no repeats, return `False`.
+
+#### Complexity
+
+- **Time:** O(N) — scan all elements once.  
+- **Space:** O(N) — worst case: all elements are distinct and must be stored.
+
+## 07_group_anagrams.py
+
+This file implements the solution to the “Group Anagrams” problem.  
+Given an array of strings, return a list of lists where each inner list contains words that are anagrams of each other.
+
+##### Approach
+
+Two strings are anagrams if they contain the same characters in any order.  
+To group them efficiently:
+
+1. Sort each string to produce a canonical key.
+2. Use a dictionary mapping the sorted key to a list of anagrams.
+3. Append each word to its corresponding group.
+4. Return all grouped lists.
+
+#### Complexity
+
+- **Time:** O(N * K log K) — sort each string of length K  
+- **Space:** O(N * K) — store all strings in grouped lists
+
+## 08_two_sum.py
+
+This file implements the optimized solution to the “Two Sum” problem.
+
+Given an integer array `nums` and a target value, return the indices of the
+two numbers whose sum equals the target. Exactly one valid pair exists.
+
+#### Approach
+
+Use a hash table to store previously seen numbers and their indices.
+For each number `nums[i]`, compute:
+
+    key = target - nums[i]
+
+If `key` is already in the hash table, return `[ht[key], i]`.
+Otherwise, insert `nums[i]` into the hash table.
+
+#### Complexity
+
+- **Time:** O(N) — one pass through the array  
+- **Space:** O(N) — hash table storing up to N elements
+
+## 09_three_sum.py
+
+Implements the optimized O(N²) solution to the Three Sum problem.
+
+#### Problem
+
+Return all unique triplets [a, b, c] in `nums` such that a + b + c = 0.
+
+#### Approach
+
+1. Sort the array.
+2. For each index `i`, treat `nums[i]` as the first element.
+3. Use a two-pointer two-sum search on the subarray `i+1..n-1` to find
+   pairs whose sum equals `-nums[i]`.
+4. Skip duplicates for both the first element and pointer elements.
+5. Append each valid triplet.
+
+#### Complexity
+
+- **Time:** O(N²)
+- **Space:** O(N) for storing triplets
+
+## 10_longest_consecutive.py
+
+Implements the O(N) solution to the Longest Consecutive Sequence problem. 
+
+#### Problem
+
+Given an unsorted array of integers, return the length of the longest
+sequence (run) of consecutive values. Order in the array does not matter — only whether the consecutive values exist.
+
+#### Approach
+
+1. Insert all numbers into a set for constant-time membership checks.
+2. For each number, determine if it is the start of a sequence
+   (num - 1 not in the set).
+3. If it is a start, count upward until the sequence ends.
+4. Track the maximum streak length.
+
+#### Complexity
+- **Time:** O(N)
+- **Space:** O(N)
